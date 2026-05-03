@@ -3,12 +3,20 @@ from schemas.request import SessionRequest
 from schemas.response import PredictionResponse
 from services.predictor import PredictorService
 
-predictor = PredictorService()
 router = APIRouter()
+predictor = None
+
+
+def get_predictor():
+    global predictor
+    if predictor is None:
+        predictor = PredictorService()
+    return predictor
 
 
 @router.post("/predict", response_model=PredictionResponse)
 def predict(data: SessionRequest) -> PredictionResponse:
+    predictor = get_predictor()
     probabilities, risk_label, confidence = predictor.predict(data.model_dump())
 
     return PredictionResponse(
