@@ -1,4 +1,4 @@
 pandas
 joblib
-fastapi
-uvicorn
+fastapi[stander]
+onnxruntime
