@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import base, health, predict
+from routes import health, predict
 
 app = FastAPI(
     title="User Risk Detection API",
@@ -19,6 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(base.router, tags=["User", "Risk", "Detection", "API"])
+
+@app.get("/")
+def health_check():
+    return {"details": "Welcome to user-risk-detection-api!"}
+
+
 app.include_router(health.router, tags=["Health"])
 app.include_router(predict.router, prefix="/api/v1", tags=["Prediction"])
