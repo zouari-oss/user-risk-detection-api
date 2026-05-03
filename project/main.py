@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from mangum import Mangum
 from routes import base, health, predict
 
 app = FastAPI(
@@ -23,3 +23,6 @@ app.add_middleware(
 app.include_router(base.router, tags=["User", "Risk", "Detection", "API"])
 app.include_router(health.router, tags=["Health"])
 app.include_router(predict.router, prefix="/api/v1", tags=["Prediction"])
+
+# INFO: for vercel
+handler = Mangum(app)
