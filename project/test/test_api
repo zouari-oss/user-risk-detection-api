@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
-API_URL="http://127.0.0.1:8000/api/v1/predict"
-CSV_FILE="test.csv"
+if [ "$1" = "--remote" ]; then
+  API_URL="https://user-risk-detection-api.vercel.app/api/v1/predict"
+  CSV_FILE="remote_test.csv"
+else
+  API_URL="http://127.0.0.1:8000/api/v1/predict"
+  CSV_FILE="test.csv"
+fi
+
+echo "Testing ${API_URL} with ${CSV_FILE}"
 
 declare -A cm
 
