@@ -1,4 +1,4 @@
+fastapi
+uvicorn
 pandas
 joblib
-fastapi[standard]
-mangum
